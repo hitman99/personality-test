@@ -1,10 +1,17 @@
 {
-  "categories": [
-    "hard_fact",
-    "lifestyle",
-    "introversion",
-    "passion"
-  ],
+  "categories": [{
+    "name": "hard_fact",
+    "display": "Hard Facts"
+  }, {
+    "name": "lifestyle",
+    "display": "Lifestyle"
+  }, {
+    "name": "introversion",
+    "display": "Introversion"
+  }, {
+    "name": "passion",
+    "display": "Passion"
+  }],
   "questions": [
     {
       "question": "What is your gender?",
