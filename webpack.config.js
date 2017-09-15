@@ -11,6 +11,9 @@ module.exports = {
             { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
         ]
     },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
     watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
