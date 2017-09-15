@@ -39,14 +39,15 @@ describe('Questions DB module', () => {
 describe('Answer storage', () =>{
     jest.mock('ioredis');
     const mockFn = jest.fn();
-    it('creates new user for answers', () => {
+    it('does not allow duplicate usernames', () => {
         expect.assertions(1);
-        return expect(answers.saveAnswers({ name: 'test_name' })).resolves.toEqual('OK');
+        return expect(answers.saveAnswers({ username: 'duplicate_name', answers: {}, timestamp: new Date().getTime() })).rejects.toEqual('User already exists');
     });
-    it('does not allow duplicate users', () => {
+    it('saves answers for user', () => {
         expect.assertions(1);
-        return expect(answers.saveAnswers({ name: 'duplicate_name' })).rejects.toEqual('User already exists');
+        return expect(answers.saveAnswers({ username: 'test_name', answers: {}, timestamp: new Date().getTime() })).resolves.toEqual('OK');
     });
+
 });
 
 

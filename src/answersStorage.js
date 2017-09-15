@@ -5,11 +5,22 @@ var Redis = require('ioredis');
 var Promise = require('promise');
 var redis = new Redis();
 
-function saveAnswers(user, answers){
+function saveAnswers({
+    username,
+    answers,
+    timestamp
+}){
     return new Promise(function(resolve, reject){
-        createUser(user.name)
+        createUser(username)
             .then(function(data){
-                resolve(data);
+                redis.zadd(username, timestamp, answers, function(res, err){
+                    if(!err){
+                        resolve(res);
+                    }
+                    else{
+                        reject(err);
+                    }
+                });
             })
             .catch(function(err){
                 reject(err);

@@ -1,8 +1,8 @@
 const IORedis = jest.genMockFromModule('ioredis');
 
-IORedis.prototype.hget = jest.genMockFn();
-IORedis.prototype.hget.mockImplementation(function (key, link) {
-    link('hget');
+IORedis.prototype.zadd = jest.genMockFn();
+IORedis.prototype.zadd.mockImplementation(function (key, score, value, link) {
+    link('OK', false);
 });
 IORedis.prototype.sadd = jest.genMockFn();
 IORedis.prototype.sadd.mockImplementation(function (key, link) {
