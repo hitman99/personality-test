@@ -57,6 +57,7 @@ export default class AppRootWrapper extends React.Component {
         if(activeCategory + 1 == this.state.categories.length){
             // that's it
             this.setState({ finished: true });
+            sendAnswers({ username: 'test', answers})
             console.log(answers);
         }
         else{

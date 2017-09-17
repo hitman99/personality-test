@@ -5,12 +5,12 @@ IORedis.prototype.zadd.mockImplementation(function (key, score, value, link) {
     link('OK', false);
 });
 IORedis.prototype.sadd = jest.genMockFn();
-IORedis.prototype.sadd.mockImplementation(function (key, link) {
+IORedis.prototype.sadd.mockImplementation(function (key, value, link) {
     link('OK', false);
 });
 IORedis.prototype.sismember = jest.genMockFn();
-IORedis.prototype.sismember.mockImplementation(function (key, link) {
-    switch(key){
+IORedis.prototype.sismember.mockImplementation(function (key, value, link) {
+    switch(value){
         case 'test_name':
             link('OK');
             break;

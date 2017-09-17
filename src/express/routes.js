@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 var questionsByCategory = [];
 var categoriesList = [];
 
+var answers = require('../answersStorage');
+
 // Static files
 app.use(express.static(path.join(__dirname, 'public/static/')));
 
@@ -26,6 +28,22 @@ app.get('/categories', function(req, res){
     res.send({
         categories: categoriesList
     });
+});
+
+app.post('/answers', function(req, res){
+    answers.saveAnswers({ username: req.body.username, answers: req.body.answers, timestamp: new Date().getTime()})
+        .then(function(msg){
+            res.send({
+                status: 'OK'
+            });
+        })
+        .catch(function(msg){
+            res.send({
+                status: 'NOK',
+                message: msg
+            });
+        })
+
 });
 
 module.exports = function(data){

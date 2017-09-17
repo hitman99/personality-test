@@ -13,7 +13,7 @@ function saveAnswers({
     return new Promise(function(resolve, reject){
         createUser(username)
             .then(function(data){
-                redis.zadd(username, timestamp, answers, function(res, err){
+                redis.zadd(username + '-answers', timestamp, JSON.stringify(answers), function(res, err){
                     if(!err){
                         resolve(res);
                     }
@@ -37,12 +37,12 @@ function createUser(username){
     return new Promise(function(resolve, reject){
         usernameAvailable(username)
             .then(function(){
-                redis.sadd(username, function(res, err){
+                redis.sadd('users', username, function(res, err){
                     if(!err){
                         resolve(res);
                     }
                     else{
-                        reject('Cannot create user');
+                        reject('Cannot create user: ' + err);
                     }
                 });
             })
@@ -59,7 +59,7 @@ function createUser(username){
 function usernameAvailable(username){
 
     return new Promise(function(resolve, reject){
-        redis.sismember(username, function(res, err){
+        redis.sismember('users', username, function(res, err){
             if(!err){
                 resolve();
             }
