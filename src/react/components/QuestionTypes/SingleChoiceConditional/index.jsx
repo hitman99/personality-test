@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Radio } from 'semantic-ui-react'
 
-export default class SingleChoice extends React.Component {
+export default class SingleChoiceConditional extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -16,7 +16,7 @@ export default class SingleChoice extends React.Component {
     }
 
     render(){
-        const { options } = this.props;
+        const { options, condition } = this.props;
         return(
             <Form>
                 {

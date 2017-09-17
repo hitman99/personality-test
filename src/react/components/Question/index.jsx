@@ -4,19 +4,20 @@ import SingleChoice from '../QuestionTypes/SingleChoice'
 
 export default class Question extends React.Component {
 
-
     render(){
-         let content;
+         let content, additionalContent;
          const { question, type, onChange } = this.props;
          switch(type.type){
              case 'single_choice':
+             case 'single_choice_conditional':
                  content = <SingleChoice options={type.options} onChange={onChange} />
                  break;
              default:
                  break;
          }
+
          return(
-                <div>
+                <div style={{ display: (this.props.visible ? 'block' : 'none') }}>
                     <Header as='h4' attached='top' textAlign={'left'}>
                         { question }
                     </Header>
