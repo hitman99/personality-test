@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require("body-parser");
 var questionsByCategory = [];
+var categoriesList = [];
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public/static/')));
@@ -21,7 +22,14 @@ app.get('/questions-by-category', function(req, res){
     });
 });
 
-module.exports = function(questions){
-    questionsByCategory = questions;
+app.get('/categories', function(req, res){
+    res.send({
+        categories: categoriesList
+    });
+});
+
+module.exports = function(data){
+    questionsByCategory = data.questions;
+    categoriesList = data.categories;
     return app;
 }

@@ -26,13 +26,17 @@ const mock_questions = {
 };
 
 describe('Questions DB module', () => {
-    let questions = qDB(mock_questions);
+    let questions = qDB(mock_questions).questions;
+    let categories = qDB(mock_questions).categories;
     it('flattens categories by name', () => {
         return expect(questions).toHaveProperty('cat-1');
     });
     it('puts questions into categories correctly', () => {
         return expect(questions['cat-1']).toHaveLength(2);
     });
+    it('returns categories separated', () => {
+        return expect(categories).toHaveLength(1);
+    })
 });
 
 

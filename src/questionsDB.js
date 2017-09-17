@@ -25,6 +25,9 @@ function getQuestionsByCategory(){
 
 module.exports = function(questions){
     questionsByCategory = splitQuestionsByCategory(questions.categories, questions.questions);
-    return getQuestionsByCategory();
+    return {
+        questions: getQuestionsByCategory(),
+        categories: questions.categories
+    };
 };
 

@@ -1,0 +1,35 @@
+
+html, body {
+    background: #deefff;
+    background: -moz-linear-gradient(top, #deefff 0%, #98bede 100%);
+    background: -webkit-linear-gradient(top, #deefff 0%,#98bede 100%);
+    background: linear-gradient(to bottom, #deefff 0%,#98bede 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff', endColorstr='#98bede',GradientType=0 );
+
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-y: auto;
+}
+
+#content {
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+.v-align {
+    padding-top: 10%;
+    height: 100%;
+    width: 100%;
+    display: table;
+    vertical-align: middle;
+}
+
+.the-title{
+    font-size: 50px!important;
+}
+
+.thank-you {
+    font-size: 50px!important;
+    margin-top: 20%!important;
+}
