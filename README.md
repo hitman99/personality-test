@@ -5,7 +5,7 @@ This app can run in two ways:
 1.  Your local environment
 2.  Docker
 
-Both ways are explained below. If App started correctly, you should see this view:
+Both ways are explained below. If application was started correctly, you should see this view:
 
 ![Initial View](/screenshots/initial_view.png?raw=true)
 
@@ -36,7 +36,7 @@ The app is now available via browser on default HTTP port on all the IPs your en
 If you like, change the port mapping in last docker commant to your liking. Example, to start the app on 8080 port,
 execute this command: `docker run personality-test -p 8080:80`
 
-## How to run test
+## How to run automated tests
 Top run the automated tests, follow the steps below
 
 1.  Install latest Node
