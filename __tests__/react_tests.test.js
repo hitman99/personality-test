@@ -131,25 +131,4 @@ describe('React component rendering', ()=>{
         comp.find('button').simulate('click')
         return expect(mockFn).toHaveBeenCalledTimes(1);
     })
-    it('displays bonus question', ()=>{
-        const comp = mount(<QuestionsInCategory questions={mock_data.questions} />)
-        comp.find('form').childAt(1).find('input:last').simulate('click');
-        return expect(comp.find('.question-visible').length).toBe(mock_data.questions.length + 1);
-    })
 });
-
-/*description('React component integration', ()=>{
-    it('Submits results when finish clicked', () => {
-        let mock = new MockAdapter(axios);
-        let data = { username: 'some', answers: [] };
-        let postData = null;
-        mock.onPost('/answers').reply((config) => {
-            postData = JSON.parse(config.data);
-            return [200, { status: 'OK' }]
-        });
-        expect.assertions(1);
-        return sendAnswers({ username: 'some', answers: [] }).then(()=>{
-            expect(data).toMatchObject(postData);
-        });
-    });
-})*/
