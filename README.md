@@ -7,7 +7,7 @@ This app can run in two ways:
 
 Both ways are explained below. If App started correctly, you should see this view:
 
-![Initial View](/screenshots/initial_vies.png?raw=true)
+![Initial View](/screenshots/initial_view.png?raw=true)
 
 ### Running on local environment
 Follow the steps below to run this app on your local environment
