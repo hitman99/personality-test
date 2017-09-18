@@ -6,11 +6,10 @@ html, body {
     background: linear-gradient(to bottom, #deefff 0%,#98bede 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff', endColorstr='#98bede',GradientType=0 );
 
-    height: 100%;
     margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow-y: auto;
+    opacity: 1;
 }
 
 #content {

@@ -46,8 +46,11 @@ app.post('/answers', function(req, res){
 
 });
 
-module.exports = function(data){
+module.exports = function(data, cfg){
     questionsByCategory = data.questions;
     categoriesList = data.categories;
+    if(cfg){
+        answers.setupRedis(cfg);
+    }
     return app;
 }

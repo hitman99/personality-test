@@ -72,8 +72,12 @@ export default class QuestionsInCategory extends React.Component {
     }
 
     canMoveToNextCategory(){
-        return true
-        return this.state.answers.filter( answer => answer.answer == null ).length == 0;
+        return this.state.answers.filter( (answer, key) => {
+            if(!this.state.questions[key].visible){
+                return false
+            }
+            return answer.answer == null;
+        }).length == 0;
     }
 
     nextCategory(){
@@ -86,6 +90,7 @@ export default class QuestionsInCategory extends React.Component {
         if(JSON.stringify(nextProps.questions) != JSON.stringify(this.props.questions)){
             let questions = this.processQuestions(nextProps.questions);
             this.setState({ answers: this.prepareAnswers(questions), questions });
+            setTimeout(function() {window.scrollTo(0, 0);},50);
         }
     }
 

@@ -128,7 +128,7 @@ describe('React component rendering', ()=>{
     it('requests next category when next is clicked', ()=>{
         const mockFn = jest.fn();
         const comp = mount(<QuestionsInCategory questions={mock_data.questions} onCategoryChange={mockFn}/>)
-        comp.find('button').simulate('click')
+        comp.instance().nextCategory();
         return expect(mockFn).toHaveBeenCalledTimes(1);
     })
 });

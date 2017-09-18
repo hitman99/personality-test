@@ -82,8 +82,15 @@ function getUserList(){
 
 }
 
+function setupRedis(cfg){
+    redis = new Redis(cfg.redis.port, cfg.redis.host);
+    console.log('redis!!!');
+    console.log(cfg)
+}
+
 module.exports = {
     saveAnswers: saveAnswers,
     getAnswersForUser: getAnswersForUser,
-    getUserList: getUserList
+    getUserList: getUserList,
+    setupRedis: setupRedis
 }
