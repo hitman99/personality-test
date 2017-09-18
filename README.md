@@ -5,7 +5,9 @@ This app can run in two ways:
 1.  Your local environment
 2.  Docker
 
-Both ways are explained below 
+Both ways are explained below. If App started correctly, you should see this view:
+
+![Initial View](/screenshots/initial_vies.png?raw=true)
 
 ### Running on local environment
 Follow the steps below to run this app on your local environment

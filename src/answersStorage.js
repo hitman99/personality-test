@@ -3,7 +3,7 @@
  */
 var Redis = require('ioredis');
 var Promise = require('promise');
-var redis = new Redis();
+var redis = null;
 
 function saveAnswers({
     username,
@@ -83,9 +83,7 @@ function getUserList(){
 }
 
 function setupRedis(cfg){
-    redis = new Redis(cfg.redis.port, cfg.redis.host);
-    console.log('redis!!!');
-    console.log(cfg)
+    redis = new Redis(cfg.port, cfg.host);
 }
 
 module.exports = {

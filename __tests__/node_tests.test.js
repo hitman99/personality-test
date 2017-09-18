@@ -6,6 +6,10 @@ import request from 'supertest'
 import app from '../src/express/routes';
 import qDB from '../src/questionsDB';
 import answers from '../src/answersStorage';
+answers.setupRedis({
+    host: "127.0.0.1",
+    port: "6379"
+})
 import ioredis from 'ioredis';
 
 const mock_questions = {

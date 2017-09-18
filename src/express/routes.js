@@ -50,7 +50,7 @@ module.exports = function(data, cfg){
     questionsByCategory = data.questions;
     categoriesList = data.categories;
     if(cfg){
-        answers.setupRedis(cfg);
+        answers.setupRedis(cfg.redis);
     }
     return app;
 }
