@@ -13,7 +13,8 @@ export default class AppRootWrapper extends React.Component {
             answers: [],
             activeCategory: -1,
             categories: [],
-            finished: false
+            finished: false,
+            email: null
         };
 
         this.onCategoryChange = this.onCategoryChange.bind(this);
@@ -51,14 +52,15 @@ export default class AppRootWrapper extends React.Component {
 
     onCategoryChange(categoryAnswers){
         let answers = [...this.state.answers];
-        const { categories } = this.state;
+        const { categories, email } = this.state;
         answers = answers.concat(categoryAnswers);
         let activeCategory = this.state.activeCategory;
         if(activeCategory + 1 == this.state.categories.length){
             // that's it
             this.setState({ finished: true });
-            sendAnswers({ username: 'test', answers})
-            console.log(answers);
+            if(email){
+                sendAnswers({ username: email, answers});
+            }
         }
         else{
             activeCategory++;
@@ -81,6 +83,7 @@ export default class AppRootWrapper extends React.Component {
                         questions={categoryQuestions}
                         onCategoryChange={this.onCategoryChange}
                         lastCategory={activeCategory + 1 == categories.length}
-                        finished={finished} />
+                        finished={finished}
+                        onEmailProvided={(email)=>{ this.setState({ email })}} />
     }
 }

@@ -126,5 +126,6 @@ export default class QuestionsInCategory extends React.Component {
 }
 
 QuestionsInCategory.PropTypes = {
-    questions: PropTypes.array.isRequired
+    questions: PropTypes.array.isRequired,
+    onCategoryChange: PropTypes.func.isRequired
 }
