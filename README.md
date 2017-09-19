@@ -33,8 +33,7 @@ Follow the steps below to run this app in Docker. You need to use `sudo` or be `
 3.  `docker-compose up`
 
 The app is now available via browser on default HTTP port on all the IPs your environment has.
-If you like, change the port mapping in last docker commant to your liking. Example, to start the app on 8080 port,
-execute this command: `docker run personality-test -p 8080:80`
+Port can be changed in `docker-compose.yml` file, `ports` section
 
 ## How to run automated tests
 Top run the automated tests, follow the steps below
