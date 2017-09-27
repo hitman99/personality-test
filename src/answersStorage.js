@@ -70,10 +70,6 @@ function usernameAvailable(username){
     });
 }
 
-function saveUserAnswers(){
-
-}
-
 function getAnswersForUser(user){
 
 }
