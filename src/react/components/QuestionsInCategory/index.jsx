@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'semantic-ui-react'
 import Question from '../Question'
+import UnansweredQuestionModal from './Modals/UnansweredQuestions'
 
 export default class QuestionsInCategory extends React.Component {
     constructor(props){
@@ -10,7 +11,9 @@ export default class QuestionsInCategory extends React.Component {
         this.state = {
             answers: this.prepareAnswers(questions),
             questions,
-            finished: false
+            finished: false,
+            showModal: false,
+            markUnanswered: false
         };
         this.nextCategory = this.nextCategory.bind(this);
     }
@@ -81,9 +84,15 @@ export default class QuestionsInCategory extends React.Component {
     }
 
     nextCategory(){
-        const { answers, questions } = this.state;
-        let filteredAnswers = answers.filter( (answer, key) => questions[key].visible);
-        this.props.onCategoryChange(filteredAnswers);
+        if(!this.canMoveToNextCategory()){
+            this.setState({ showModal: true, markUnanswered: true });
+        }
+        else{
+            this.setState({ markUnanswered: false });
+            const { answers, questions } = this.state;
+            let filteredAnswers = answers.filter( (answer, key) => questions[key].visible);
+            this.props.onCategoryChange(filteredAnswers);
+        }
     }
 
     componentWillReceiveProps(nextProps){
@@ -94,17 +103,22 @@ export default class QuestionsInCategory extends React.Component {
         }
     }
 
+    closeModal(){
+        this.setState({ showModal: false });
+    }
+
     render(){
         const { lastCategory } = this.props;
-        const { questions } = this.state;
-        let button;
+        const { questions, showModal, markUnanswered } = this.state;
+        let button, uaModal;
+        //{/*disabled={!this.canMoveToNextCategory()}*/
         if(!lastCategory){
             button = <Button primary
                              content='Next'
                              icon='right arrow'
                              labelPosition='right'
                              floated='right'
-                             disabled={!this.canMoveToNextCategory()}
+                             
                              onClick={this.nextCategory} />
         }
         else{
@@ -115,6 +129,9 @@ export default class QuestionsInCategory extends React.Component {
                         floated='right'
                         onClick={this.nextCategory} />
         }
+        if(showModal){
+            uaModal = <UnansweredQuestionModal onClose={this.closeModal.bind(this)} />
+        }
         return (
             <div>
                 {
@@ -122,9 +139,11 @@ export default class QuestionsInCategory extends React.Component {
                                                                 type={question.question_type}
                                                                 visible={question.visible}
                                                                 key={question.category + key}
-                                                                onChange={this.saveAnswer.bind(this, key)}/> )
+                                                                onChange={this.saveAnswer.bind(this, key)} 
+                                                                markRed={markUnanswered}/> )
                 }
                 { button }
+                { uaModal }
             </div>
         );
     }
