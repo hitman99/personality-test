@@ -46,8 +46,12 @@ export default class AppRoot extends React.Component {
         this.setState({ emailProvided: true });
     }
 
+    pickImage(){
+        this.__file.click();
+    }
+
     render(){
-        const { steps, questions, onCategoryChange, lastCategory, finished } = this.props;
+        const { steps, questions, onCategoryChange, lastCategory, finished, uploadImage } = this.props;
         const { emailProvided, emailValid, duplicateEmail, isCheckingEmail } = this.state;
         let categoryQuestions, emailModal, emailWarning;
         if(questions.length){
@@ -71,6 +75,18 @@ export default class AppRoot extends React.Component {
                                 onChange={(ev, props)=>{ this.setState({ email: props.value, isCheckingEmail: true }, ()=>{ this.validateEmail() }); }}
                                 value={this.state.email} />
                         { emailWarning }
+                        <input style={{ 
+                                height: '0px',
+                                width: '0px',
+                                display: 'none'
+                            }} 
+                            type="file"
+                            ref={(input) => { this.__file = input; }}
+                            onChange={(ev) => {uploadImage(ev.target.files[0]) }} />
+                            <br />
+                         <Button color='blue' onClick={this.pickImage.bind(this)}>
+                             Upload image
+                         </Button>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={this.emailProvided.bind(this)} disabled={ !emailValid || duplicateEmail || isCheckingEmail } loading={isCheckingEmail}>
@@ -105,5 +121,6 @@ export default class AppRoot extends React.Component {
 AppRoot.PropTypes = {
     steps: PropTypes.array.isRequired,
     sendAnswers: PropTypes.func.isRequired,
-    checkUsername: PropTypes.func.isRequired
+    checkUsername: PropTypes.func.isRequired,
+    uploadImage: PropTypes.func.isRequired
 }

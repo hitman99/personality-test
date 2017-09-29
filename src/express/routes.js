@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require("body-parser");
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads' });
 var questionsByCategory = [];
 var categoriesList = [];
 
@@ -11,7 +13,7 @@ var answers = require('../answersStorage');
 app.use(express.static(path.join(__dirname, 'public/static/')));
 
 // For autoparsing json in POST body
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false, limit: '50mb', parameterLimit: 1000000}));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
@@ -59,6 +61,13 @@ app.post('/answers', function(req, res){
             });
         })
 
+});
+
+app.post('/images', upload.single('avatar'), function(req, res){
+    
+    res.send({
+        satus: 'uploaded'
+    })
 });
 
 module.exports = function(data, cfg){

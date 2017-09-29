@@ -43,3 +43,15 @@ export const checkUsername = (username) => {
         error => console.log('User check failed', error)
     )
 }
+
+export const uploadImage = (file) => {
+    //let formData = new FormData();
+    //formData.append("fileToUpload", );
+    return axios.post('/images', file)
+            .then(
+                response => console.log(response)
+            )
+            .catch(
+                error => console.log(error)
+            );
+}

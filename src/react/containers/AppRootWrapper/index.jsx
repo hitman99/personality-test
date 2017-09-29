@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchQuestions, fetchCategories, sendAnswers, checkUsername } from '../../actions'
+import { fetchQuestions, fetchCategories, sendAnswers, checkUsername, uploadImage } from '../../actions'
 import AppRoot from '../../components/AppRoot'
 export default class AppRootWrapper extends React.Component {
     constructor(props){
@@ -109,6 +109,7 @@ export default class AppRootWrapper extends React.Component {
                         lastCategory={activeCategory + 1 == categories.length}
                         finished={finished}
                         onEmailProvided={this.onEmailProvided.bind(this)} 
-                        checkUsername={ this.checkUsername.bind(this) } />
+                        checkUsername={ this.checkUsername.bind(this) } 
+                        uploadImage={uploadImage} />
     }
 }
