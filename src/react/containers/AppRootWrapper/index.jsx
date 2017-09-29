@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchQuestions, fetchCategories, sendAnswers } from '../../actions'
+import { fetchQuestions, fetchCategories, sendAnswers, checkUsername } from '../../actions'
 import AppRoot from '../../components/AppRoot'
 export default class AppRootWrapper extends React.Component {
     constructor(props){
@@ -13,8 +13,10 @@ export default class AppRootWrapper extends React.Component {
             answers: [],
             activeCategory: -1,
             categories: [],
-            finished: false
+            finished: false,
+            email: ''
         };
+        this.usernameTimeout = null;
 
         this.onCategoryChange = this.onCategoryChange.bind(this);
         fetchCategories()
@@ -53,14 +55,20 @@ export default class AppRootWrapper extends React.Component {
         sendAnswers({ username: email, answers: this.state.answers});
     }
 
+    onEmailProvided(email){
+        this.setState({ email });
+        console.log(email)
+    }
+
     onCategoryChange(categoryAnswers){
         let answers = [...this.state.answers];
-        const { categories } = this.state;
+        const { categories, email } = this.state;
         answers = answers.concat(categoryAnswers);
         let activeCategory = this.state.activeCategory;
         if(activeCategory + 1 == this.state.categories.length){
             // that's it
             this.setState({ finished: true, answers });
+            sendAnswers({ username: email, answers });
 
         }
         else{
@@ -74,6 +82,21 @@ export default class AppRootWrapper extends React.Component {
 
     }
 
+    checkUsername(username){
+        return new Promise((resolve, reject)=>{
+            clearTimeout(this.usernameTimeout);
+            this.usernameTimeout = setTimeout(()=>{
+                checkUsername(username)
+                .then(
+                    response => resolve(response)
+                )
+                .catch(
+                    error => reject(error)
+                );
+            }, 500);
+        });
+    }
+
     render(){
         let categoryQuestions = [];
         const { categories, questions, activeCategory, finished } = this.state;
@@ -85,6 +108,7 @@ export default class AppRootWrapper extends React.Component {
                         onCategoryChange={this.onCategoryChange}
                         lastCategory={activeCategory + 1 == categories.length}
                         finished={finished}
-                        onEmailProvided={(email)=>{ this.testCompleted(email)}} />
+                        onEmailProvided={this.onEmailProvided.bind(this)} 
+                        checkUsername={ this.checkUsername.bind(this) } />
     }
 }

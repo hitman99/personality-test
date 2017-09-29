@@ -5,6 +5,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { fetchQuestions, fetchCategories, sendAnswers } from '../src/react/actions'
 import { shallow, mount } from 'enzyme';
 import QuestionsInCategory from '../src/react/components/QuestionsInCategory'
+import AppRoot from '../src/react/components/AppRoot'
 
 if (!window.requestAnimationFrame)
     window.requestAnimationFrame = function(callback, element) {
@@ -161,5 +162,11 @@ describe('React component rendering', ()=>{
         window.requestAnimationFrame = jest.fn();
         comp.find('button').simulate('click');
         return expect(window.requestAnimationFrame).toHaveBeenCalled();
+    });
+    it('checks for username availability', () => {
+        const mockFn = jest.fn(()=> new Promise((resolve, reject)=>{}) );
+        const comp = mount(<AppRoot checkUsername={mockFn} steps={[]} questions={{}} />);
+        comp.instance().validateEmail();
+        return expect(mockFn).toHaveBeenCalled();
     });
 });

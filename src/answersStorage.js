@@ -61,10 +61,15 @@ function usernameAvailable(username){
     return new Promise(function(resolve, reject){
         redis.sismember('users', username, function(err, res){
             if(!err){
-                resolve();
+                if(res == 1){
+                    resolve({ availability: 'unavailable'});
+                }
+                else {
+                    resolve({ availability: 'available'});
+                }
             }
             else{
-                reject();
+                reject({ availability: 'unavailable'});
             }
         });
     });
@@ -86,5 +91,6 @@ module.exports = {
     saveAnswers: saveAnswers,
     getAnswersForUser: getAnswersForUser,
     getUserList: getUserList,
-    setupRedis: setupRedis
+    setupRedis: setupRedis,
+    checkUsername: usernameAvailable
 }

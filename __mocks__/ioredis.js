@@ -12,10 +12,13 @@ IORedis.prototype.sismember = jest.genMockFn();
 IORedis.prototype.sismember.mockImplementation(function (key, value, link) {
     switch(value){
         case 'test_name':
-            link(null, 'OK');
+            link(null, 0);
+            break;
+        case 'duplicate_name':
+            link(null, 1);
             break;
         default:
-            link(null, 'OK');
+            link(null, 0);
     }
 });
 

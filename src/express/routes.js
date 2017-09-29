@@ -30,6 +30,21 @@ app.get('/categories', function(req, res){
     });
 });
 
+app.get('/username-check', function(req, res){
+    answers.checkUsername(req.query.username)
+    .then(function(status){
+        res.send({
+            status: status.availability
+        });
+    })
+    .catch(function(status){
+        res.send({
+            status: status.availability
+        });
+    })
+    
+});
+
 app.post('/answers', function(req, res){
     answers.saveAnswers({ username: req.body.username, answers: req.body.answers, timestamp: new Date().getTime()})
         .then(function(msg){

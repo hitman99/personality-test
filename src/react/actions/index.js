@@ -29,6 +29,17 @@ export const sendAnswers = ({
             response => response.data
         )
         .catch(
-            error => console.log('Submit failed.', err)
+            error => console.log('Submit failed.', error)
         )
+}
+
+export const checkUsername = (username) => {
+    
+    return axios.get('/username-check', { params: {username} })
+    .then(
+        response => response.data
+    )
+    .catch(
+        error => console.log('User check failed', error)
+    )
 }

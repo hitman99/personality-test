@@ -62,6 +62,14 @@ describe('Answer storage', () =>{
                     })
             })
     });
+    it('allows unique username', () => {
+        expect.assertions(1);
+        return expect(answers.checkUsername('test_name')).resolves.toEqual({ availability: 'available'});
+    });
+    it('does not allow duplicate username', () => {
+        expect.assertions(1);
+        return expect(answers.checkUsername('duplicate_name')).resolves.toEqual({ availability: 'unavailable'});
+    });
 });
 
 
