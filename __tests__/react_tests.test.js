@@ -6,6 +6,25 @@ import { fetchQuestions, fetchCategories, sendAnswers } from '../src/react/actio
 import { shallow, mount } from 'enzyme';
 import QuestionsInCategory from '../src/react/components/QuestionsInCategory'
 
+if (!window.requestAnimationFrame)
+    window.requestAnimationFrame = function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+            timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+
+if (!window.cancelAnimationFrame)
+    window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+    };
+
+if(!window.lastTime){
+    window.lastTime = () => {}
+}
+
 describe('Backend communications', () => {
     it('fetches questions from correct URL', () => {
         let mock = new MockAdapter(axios);
@@ -128,7 +147,19 @@ describe('React component rendering', ()=>{
     it('requests next category when next is clicked', ()=>{
         const mockFn = jest.fn();
         const comp = mount(<QuestionsInCategory questions={mock_data.questions} onCategoryChange={mockFn}/>)
-        comp.instance().nextCategory();
+        comp.instance().state.answers = [{ answer: true }];
+        comp.instance().nextCategory(true);
         return expect(mockFn).toHaveBeenCalledTimes(1);
-    })
+    });
+    it('marks unanswered questions', () =>{
+        const comp = mount(<QuestionsInCategory questions={mock_data.questions}/>);
+        comp.find('button').simulate('click');
+        return expect(comp.find('.ui.red').length).toBe(4);
+    });
+    it('shows message if questions are left unanswered', ()=> {
+        const comp = mount(<QuestionsInCategory questions={mock_data.questions}/>);
+        window.requestAnimationFrame = jest.fn();
+        comp.find('button').simulate('click');
+        return expect(window.requestAnimationFrame).toHaveBeenCalled();
+    });
 });
